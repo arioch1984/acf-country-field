@@ -9,7 +9,8 @@ Author URI: http://ilikekillnerds.com
 License: GPL
 */
 
-load_plugin_textdomain( 'acf-COUNTRY_FIELD', false, dirname( plugin_basename(__FILE__) ) . '/lang/' );
+$plugin_base_path = dirname( plugin_basename(__FILE__));
+load_plugin_textdomain( 'acf-COUNTRY_FIELD', false, $plugin_base_path . '/lang/' );
 
 // Activate and deactivate hooks
 register_activation_hook( __FILE__, 'populate_db' );
@@ -31,6 +32,7 @@ function populate_db() {
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
     ob_start();
+	global $plugin_dir;
     require_once "lib/install-data.php";
     $sql = ob_get_clean();
     dbDelta( $sql );
@@ -44,5 +46,5 @@ function depopulate_db() {
     $sql = ob_get_clean();
     dbDelta( $sql );
 }
-    
+
 ?>
